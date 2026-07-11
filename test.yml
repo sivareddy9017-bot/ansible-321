@@ -1,14 +1,15 @@
- - name: Nginx installation
-   hosts: local 
-   connection: local 
-   become: yes 
+- name: install nginx server
+  hosts: local 
+  become: yes
+  connection: local
+  tasks:
+  - name: install web nginx server
+    ansible.builtin.package:
+     name: nginx
+     state: present
 
-   tasks:
-     - name: install nginx server 
-       ansible.builtin.package:
-       state: prasent
-
-     - name: start service
-       ansible.builtin.service:
-       state: started 
-       enabled: yes
+  - name: start mysql
+    ansible.builtin.service:
+     name: nginx
+     state: started
+     enabled: yes   
